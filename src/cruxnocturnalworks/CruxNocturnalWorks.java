@@ -12,6 +12,7 @@ import cruxnocturnalworks.content.items.ItemsContent;
 import cruxnocturnalworks.content.units.UnitsContent;
 import cruxnocturnalworks.content.planets.PlanetsContent;
 import cruxnocturnalworks.content.sectors.SectorsContent;
+import cruxnocturnalworks.content.tech.PlanetTechTree;
 import cruxnocturnalworks.content.ContentVars;
 import static cruxnocturnalworks.content.ContentVars.*;
 public class CruxNocturnalWorks extends Mod{
@@ -27,6 +28,7 @@ ProductionBlocks.load();
 TurretBlocks.load();
 PlanetsContent.load();
 SectorsContent.load();
+PlanetTechTree.load();
 cruxnocturnalworks.mechanics.UnitMechanics.load();
 cruxnocturnalworks.mechanics.DrillLimitMechanics.load();
 }
