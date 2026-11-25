@@ -1,18 +1,14 @@
 name: Build and Release
-
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-
 permissions:
   contents: write
-
 concurrency:
   group: automatic-release
   cancel-in-progress: false
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -21,18 +17,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android build tools
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
-
       - name: Calculate next version
         id: version
         shell: bash
@@ -53,15 +50,12 @@ jobs:
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Next release: $VERSION"
-
-      - name: Build mod
-        run: gradle clean jar -PreleaseVersion="${{ steps.version.outputs.version }}"
-
+      - name: Build Android-compatible mod
+        run: gradle clean deploy -PreleaseVersion="${{ steps.version.outputs.version }}"
       - name: Prepare release asset
         run: |
           mkdir -p release
           cp build/libs/CruxNocturnalWorks.jar release/CruxNocturnalWorks.jar
-
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
