@@ -8,6 +8,7 @@ import mindustry.world.blocks.distribution.*;
 import mindustry.world.blocks.environment.*;
 import mindustry.world.blocks.production.*;
 import mindustry.world.blocks.campaign.*;
+import mindustry.world.blocks.storage.CoreBlock;
 import mindustry.world.blocks.defense.turrets.*;
 import mindustry.entities.abilities.*;
 import mindustry.entities.bullet.*;
