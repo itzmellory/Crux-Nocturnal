@@ -24,7 +24,7 @@ TechTree.node(petalsB, () -> {});
 TechTree.node(petalsC, () -> {});
 TechTree.node(structureConcrete, () -> {});
 });
-root.planet = ContentVars.orbitalStation;
+root.each(node -> node.planet = ContentVars.orbitalStation);
 ContentVars.orbitalStation.techTree = root;
 root.addPlanet(ContentVars.orbitalStation);
 }
