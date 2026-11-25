@@ -3,7 +3,7 @@ plugins {
 }
 sourceSets {
     main {
-        java { srcDirs = ['src/CruxNocturnal'] }
+        java { srcDirs = ['src'] }
     }
 }
 group = 'cruxnocturnalworks'
