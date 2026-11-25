@@ -27,7 +27,7 @@ public class PlanetTechTree{
                 TechTree.node(petalsC);
                 TechTree.node(structureConcrete);
             });
-            TechTree.nodeProduce(structureMetall);
+            TechTree.nodeProduce(structureMetall, () -> {});
         });
     }
 }
