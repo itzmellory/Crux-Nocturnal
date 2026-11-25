@@ -33,7 +33,6 @@ jobs:
           fi
           for i in {1..100}; do echo y; done | "$SDKMANAGER" --sdk_root="$SDK_ROOT" --licenses
           "$SDKMANAGER" --sdk_root="$SDK_ROOT" --install "platforms;android-35" "build-tools;35.0.0"
-          echo "$SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
