@@ -1,53 +1,52 @@
 package cruxnocturnalworks.content.planets;
 import arc.graphics.Color;
-import arc.math.Rand;
 import arc.math.geom.Mat3D;
 import arc.math.geom.Vec3;
 import arc.struct.Seq;
+import arc.util.Tmp;
 import mindustry.content.Planets;
 import mindustry.graphics.g3d.*;
+import mindustry.maps.planet.AsteroidGenerator;
+import mindustry.type.Planet;
 import cruxnocturnalworks.content.ContentVars;
 import static cruxnocturnalworks.content.ContentVars.*;
 public class PlanetsContent{
 public static void load(){
-ContentVars.orbitalStation = new mindustry.type.Planet("orbitalstation", Planets.serpulo, 0.22f, 3){{
-generator = new OrbitalStationPlanetGenerator();
-meshLoader = () -> {
-Seq<GenericMesh> meshes = new Seq<>();
-Color surface = Color.valueOf("651b25");
-Color surfaceLight = Color.valueOf("bd3945");
-Color asteroid = Color.valueOf("173b3b");
-Color asteroidLight = Color.valueOf("4e8174");
-meshes.add(new NoiseMesh(this, 17, 3, radius, 4, 0.55f, 0.45f, 14f, surface, surfaceLight, 4, 0.6f, 0.38f, 0.43f));
-Rand rand = new Rand(id + 73);
-for(int i = 0; i < 76; i++){
-float angle = rand.random(360f);
-float distance = rand.random(0.47f, 0.7f);
-float y = rand.random(-0.055f, 0.055f);
-float size = rand.random(0.012f, 0.027f);
-NoiseMesh rock = new NoiseMesh(this, i + 31, 1, size, 2, 0.6f, 0.38f, 20f, asteroid, asteroidLight, 3, 0.6f, 0.38f, 0.5f);
-Vec3 offset = new Vec3().setToRandomDirection(rand);
-offset.set((float)Math.cos(Math.toRadians(angle)) * distance, y, (float)Math.sin(Math.toRadians(angle)) * distance);
-meshes.add(new MatMesh(rock, new Mat3D().setToTranslation(offset)));
-}
-return new MultiMesh(meshes.toArray(GenericMesh.class));
-};
-cloudMeshLoader = () -> new HexSkyMesh(this, 29, 0.08f, 1.03f, 4, Color.valueOf("a52c35").a(0.16f), 5, 0.18f, 1f, 0.32f);
+ContentVars.orbitalStation = new Planet("orbitalstation", Planets.serpulo, 0.4f, 1){{
+localizedName = "Orbital Station";
+description = "A massive dark steel structure belonging to the Crux fraction and located on the moon of Serpulo.";
+icon = "planet";
+iconColor = Color.valueOf("aa5555ff");
 radius = 0.4f;
-rotateTime = 110f;
-visible = true;
+orbitRadius = 4.5f;
+rotateTime = 160f;
 accessible = true;
 hasAtmosphere = true;
-atmosphereColor = Color.valueOf("b52d3c");
-atmosphereRadIn = 0.008f;
-atmosphereRadOut = 0.16f;
+atmosphereColor = Color.valueOf("7d292933");
+atmosphereRadIn = 0f;
+atmosphereRadOut = 0.09f;
+lightSrcFrom = 0f;
+lightSrcTo = 0f;
+lightDstFrom = 0f;
+lightDstTo = 0f;
+updateLighting = false;
+lightColor = Color.valueOf("7d2929ff");
+camRadius = 0.25f;
+minZoom = 0.95f;
+maxZoom = 2f;
 alwaysUnlocked = true;
 startSector = 0;
-sectorSeed = 0;
 orbitSpacing = 1.2f;
-orbitRadius = 5f;
 defaultCore = coreHeart;
-autoAssignPlanet = true;
+generator = new AsteroidGenerator(){{
+min = 1;
+max = 1;
+}};
+meshLoader = () -> new MultiMesh(
+new NoiseMesh(this, 42, 3, 0.38f, 1, 0.5f, 1f, 1f, Color.valueOf("7d2929ff"), Color.valueOf("212121ff"), 1, 0.5f, 1f, 0.5f),
+new NoiseMesh(this, 67, 3, 0.25f, 1, 0.5f, 1f, 5.02f, Color.valueOf("21212188"), Color.valueOf("381f1f88"), 1, 0.5f, 1f, 0.5f)
+);
+cloudMeshLoader = () -> new HexSkyMesh(this, 27, 0f, 0.28f, 3, Color.valueOf("000000bb"), 1, 0.5f, 1f, 0.5f);
 }};
 }
 }
