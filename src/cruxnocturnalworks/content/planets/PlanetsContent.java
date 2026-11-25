@@ -17,7 +17,6 @@ public class PlanetsContent {
             cloudMeshLoader = () -> new HexSkyMesh(this, 27, 0.28f, 3.6f, 3, Color.valueOf("000000bb"), 3, 0.28f, 1f, 0.5f);
             radius = 0.4f;
             rotateTime = 160f;
-            accessible = true;
             visible = true;
             hasAtmosphere = true;
             atmosphereColor = Color.valueOf("7d292933");
