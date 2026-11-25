@@ -21,7 +21,7 @@ public static void load(){
         ContentVars.siliconBasicFactory = new GenericCrafter("silicon-basic-factory"){{
             size=2; hasItems=true; craftTime=120f; itemCapacity=10;
             requirements(Category.crafting, ItemStack.with(Items.graphite,50));
-            consumes.items(ItemStack.with(Items.graphite,5,Items.sand,10));
+            consumeItems(ItemStack.with(Items.graphite,5,Items.sand,10));
             outputItem=new ItemStack(Items.silicon,10);
         }};
 }
