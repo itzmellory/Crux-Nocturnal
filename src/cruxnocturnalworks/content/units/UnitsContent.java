@@ -27,7 +27,8 @@ public static void load(){
         ContentVars.elysium = new UnitType("a-elysium"){{
             constructor=MechUnit::new; speed=0.35f; hitSize=8f; health=850; faceTarget=true;
             armor=8f; range=60f; rotateSpeed=3f; drawCell=false; targetAir=false;
-            immunities.add(StatusEffects.burning,StatusEffects.melting);
+            immunities.add(StatusEffects.burning);
+            immunities.add(StatusEffects.melting);
             abilities.add(new ShieldArcAbility(){{
                 max=250f; regen=0f; angle=110f; width=2f; radius=3f; whenShooting=false;
                 x=0f;y=2f;cooldown=Float.MAX_VALUE;
@@ -36,7 +37,8 @@ public static void load(){
         ContentVars.pavonis = new UnitType("a-pavonis"){{
             constructor=MechUnit::new; speed=0.3f; hitSize=12f; health=2975; faceTarget=true;
             armor=12f; range=100f; rotateSpeed=2f; drawCell=false; targetAir=false;
-            immunities.add(StatusEffects.burning,StatusEffects.melting);
+            immunities.add(StatusEffects.burning);
+            immunities.add(StatusEffects.melting);
             abilities.add(new ShieldArcAbility(){{
                 max=600f; regen=0.166f; width=2f; angle=110f; radius=6f;
                 whenShooting=true; cooldown=60f;
