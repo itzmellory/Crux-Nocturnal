@@ -1,18 +1,55 @@
 package cruxnocturnalworks.content.units;
 import arc.graphics.Color;
+import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
+import arc.graphics.g2d.Lines;
+import arc.math.Angles;
+import arc.math.Mathf;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
+import mindustry.entities.Effect;
 import mindustry.entities.abilities.ShieldArcAbility;
 import mindustry.entities.bullet.BasicBulletType;
-import mindustry.entities.effect.WaveEffect;
 import mindustry.entities.part.RegionPart;
 import mindustry.entities.part.ShapePart;
 import mindustry.gen.MechUnit;
 import mindustry.gen.UnitEntity;
 import mindustry.type.UnitType;
-import mindustry.type.weapons.Weapon;
+import mindustry.type.Weapon;
 import cruxnocturnalworks.content.ContentVars;
 public class UnitsContent{
+private static final Color dark = Color.valueOf("21151d");
+private static final Color crimson = Color.valueOf("762235");
+private static final Color red = Color.valueOf("bd354b");
+private static final Color pale = Color.valueOf("e16a75");
+private static final Effect darkMuzzle = new Effect(26f, e -> {
+Draw.color(dark, crimson, e.fin());
+Lines.stroke(2.4f * e.fout());
+Lines.circle(e.x, e.y, 3f + e.fin() * 13f);
+Angles.randLenVectors(e.id, 9, e.fin() * 19f, (x, y) -> {
+Fill.circle(e.x + x, e.y + y, 1.1f * e.fout());
+});
+});
+private static final Effect darkImpact = new Effect(42f, e -> {
+Draw.color(dark, red, e.fin());
+Lines.stroke(3.2f * e.fout());
+Lines.circle(e.x, e.y, 5f + e.fin() * e.rotation);
+Draw.color(pale);
+Angles.randLenVectors(e.id, 14, e.fin() * e.rotation, (x, y) -> {
+Fill.circle(e.x + x, e.y + y, 1.5f * e.fout());
+});
+});
+private static final Effect pavonisImpact = new Effect(58f, e -> {
+Draw.color(dark, crimson, e.fin());
+Lines.stroke(4f * e.fout());
+Lines.circle(e.x, e.y, 8f + e.fin() * e.rotation);
+Draw.color(red);
+Lines.stroke(1.5f * e.fout());
+Lines.circle(e.x, e.y, 4f + e.fin() * e.rotation * 0.72f);
+Angles.randLenVectors(e.id, 22, e.fin() * e.rotation, (x, y) -> {
+Fill.circle(e.x + x, e.y + y, 2f * e.fout());
+});
+});
 public static void load(){
 ContentVars.researcher = new UnitType("researcher"){{
 constructor = UnitEntity::create;
@@ -70,7 +107,7 @@ radius = 3f;
 whenShooting = false;
 x = 0f;
 y = 2f;
-cooldown = 2147483647f;
+cooldown = Float.MAX_VALUE;
 }});
 weapons.add(new Weapon("a-elysium-shield-weapon"){{
 showStatSprite = true;
@@ -84,22 +121,14 @@ lifetime = 1f;
 width = 0f;
 height = 0f;
 rangeOverride = 60f;
-hitEffect = Fx.none;
-shootEffect = Fx.explosion;
+hitEffect = darkImpact;
+shootEffect = darkMuzzle;
 smokeEffect = Fx.none;
 splashDamage = 19.5f;
 splashDamageRadius = 60f;
 collidesTeam = false;
 instantDisappear = true;
-despawnEffect = new WaveEffect(){{
-lifetime = 35f;
-sizeFrom = 0f;
-sizeTo = 45f;
-strokeFrom = 5f;
-strokeTo = 0f;
-colorFrom = Color.valueOf("222222");
-colorTo = Color.valueOf("222222");
-}};
+despawnEffect = darkImpact;
 }};
 }});
 }};
@@ -166,22 +195,14 @@ height = 0f;
 rangeOverride = 60f;
 status = StatusEffects.burning;
 statusDuration = 180f;
-hitEffect = Fx.none;
-shootEffect = Fx.explosion;
+hitEffect = pavonisImpact;
+shootEffect = darkMuzzle;
 smokeEffect = Fx.none;
 splashDamage = 57.5f;
 splashDamageRadius = 100f;
 collidesTeam = false;
 instantDisappear = true;
-despawnEffect = new WaveEffect(){{
-lifetime = 55f;
-sizeFrom = 0f;
-sizeTo = 55f;
-strokeFrom = 5f;
-strokeTo = 0f;
-colorFrom = Color.valueOf("662222");
-colorTo = Color.valueOf("aa4422");
-}};
+despawnEffect = pavonisImpact;
 }};
 }});
 }};
