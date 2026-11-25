@@ -21,7 +21,7 @@ public static void load(){
         ContentVars.orbitalStation = new Planet("orbitalstation", Planets.serpulo, 4.5f, 3){{
             generator=new OrbitalStationPlanetGenerator();
             meshLoader=()->new mindustry.graphics.g3d.HexMesh(this,3);
-            cloudMeshLoader=()->new mindustry.graphics.g3d.HexSkyMesh(this,27,0.28f,3.6f,3,arc.graphics.Color.valueOf("000000bb"),3,0.28f);
+            cloudMeshLoader=()->new mindustry.graphics.g3d.HexSkyMesh(this,27,0.28f,3.6f,3,arc.graphics.Color.valueOf("000000bb"),3,0.28f,1f,0.5f);
             radius=0.4f; rotateTime=160f; accessible=true; hasAtmosphere=true;
             atmosphereColor=arc.graphics.Color.valueOf("7d292933");
             alwaysUnlocked=true; defaultCore=coreHeart;
