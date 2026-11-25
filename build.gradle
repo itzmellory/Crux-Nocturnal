@@ -22,8 +22,47 @@ repositories {
 dependencies {
     compileOnly 'com.github.Anuken.Mindustry:core:v154'
 }
-jar {
+def androidSdk = providers.environmentVariable('ANDROID_HOME').orElse(providers.environmentVariable('ANDROID_SDK_ROOT'))
+def androidBuildTools = androidSdk.map { sdk ->
+    fileTree("${sdk}/build-tools").matching { include '*/d8' }.files.sort { a, b -> b.parentFile.name <=> a.parentFile.name }.find()
+}
+def androidPlatform = androidSdk.map { sdk ->
+    fileTree("${sdk}/platforms").matching { include '*/android.jar' }.files.sort { a, b -> b.parentFile.name <=> a.parentFile.name }.find()
+}
+tasks.register('jarAndroid') {
+    dependsOn tasks.jar
+    doLast {
+        def d8 = androidBuildTools.get()
+        def androidJar = androidPlatform.get()
+        if (d8 == null || androidJar == null) {
+            throw new GradleException('Android SDK with build-tools (d8) and platforms (android.jar) is required')
+        }
+        def desktopJar = tasks.jar.archiveFile.get().asFile
+        def outputJar = layout.buildDirectory.file('libs/CruxNocturnalWorksAndroid.jar').get().asFile
+        outputJar.parentFile.mkdirs()
+        if (outputJar.exists()) outputJar.delete()
+        def args = ['--min-api', '21', '--lib', androidJar.absolutePath]
+        configurations.compileClasspath.files.each { dependency ->
+            args.addAll(['--classpath', dependency.absolutePath])
+        }
+        args.addAll(['--output', outputJar.absolutePath, desktopJar.absolutePath])
+        exec {
+            executable d8.absolutePath
+            args args
+        }
+    }
+}
+tasks.register('deploy', Jar) {
+    dependsOn tasks.jar
+    dependsOn tasks.jarAndroid
     archiveFileName = 'CruxNocturnalWorks.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { zipTree(tasks.jar.archiveFile.get().asFile) }
+    from { zipTree(layout.buildDirectory.file('libs/CruxNocturnalWorksAndroid.jar').get().asFile) }
+}
+tasks.jar {
+    archiveFileName = 'CruxNocturnalWorksDesktop.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from('mod.hjson')
     from('icon.png')
     from('sprites') {
