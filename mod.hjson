@@ -1,0 +1,7 @@
+name: crux-nocturnal-works
+displayName: Crux Nocturnal Works
+author: Muri
+description: ---
+version: a0.1
+minGameVersion: 154
+main: cruxnocturnalworks.CruxNocturnalWorks

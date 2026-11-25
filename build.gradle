@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+sourceSets {
+    main {
+        java { srcDirs = ['src/CruxNocturnal'] }
+    }
+}
+group = 'cruxnocturnalworks'
+version = 'a0.1'
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(17) }
+}
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    compileOnly 'com.github.Anuken.Mindustry:core:v154'
+}
+jar {
+    archiveFileName = 'CruxNocturnalWorks.jar'
+    from('mod.hjson')
+    from('sprites') { into 'sprites' }
+    from('sounds') { into 'sounds' }
+    from('maps') { into 'maps' }
+    from('icon.png')
+}
