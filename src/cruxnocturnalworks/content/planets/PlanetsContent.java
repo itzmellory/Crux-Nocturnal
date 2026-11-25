@@ -13,7 +13,6 @@ public class PlanetsContent {
     public static void load() {
         ContentVars.orbitalStation = new Planet("orbitalstation", Planets.sun, 1f, 3) {{
             generator = new OrbitalStationPlanetGenerator();
-            meshLoader = () -> new HexMesh(this, 5);
             cloudMeshLoader = () -> new HexSkyMesh(this, 27, 0.28f, 3.6f, 3, Color.valueOf("000000bb"), 3, 0.28f, 1f, 0.5f);
             radius = 0.4f;
             rotateTime = 160f;
