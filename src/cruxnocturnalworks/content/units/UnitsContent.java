@@ -111,8 +111,12 @@ cooldown = Float.MAX_VALUE;
 }});
 weapons.add(new Weapon("a-elysium-shield-weapon"){{
 showStatSprite = true;
+display = true;
+top = true;
+layerOffset = 0.1f;
 x = 0f;
-y = 0f;
+y = 5f;
+shootY = -5f;
 mirror = false;
 controllable = true;
 aiControllable = true;
@@ -189,8 +193,12 @@ y = 0f;
 }});
 weapons.add(new Weapon("a-pavonis-shield-weapon"){{
 showStatSprite = true;
+display = true;
+top = true;
+layerOffset = 0.1f;
 x = 0f;
-y = 0f;
+y = 7f;
+shootY = -7f;
 mirror = false;
 controllable = true;
 aiControllable = true;
