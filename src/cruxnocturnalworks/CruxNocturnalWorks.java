@@ -16,6 +16,7 @@ import cruxnocturnalworks.content.blocks.ProductionBlocks;
 import cruxnocturnalworks.content.blocks.TurretBlocks;
 import cruxnocturnalworks.content.items.ItemsContent;
 import cruxnocturnalworks.content.units.UnitsContent;
+import cruxnocturnalworks.content.units.HiddenUnitsContent;
 import cruxnocturnalworks.content.planets.PlanetsContent;
 import cruxnocturnalworks.content.sectors.SectorsContent;
 import cruxnocturnalworks.content.tech.PlanetTechTree;
@@ -25,6 +26,7 @@ public class CruxNocturnalWorks extends Mod{
 public void loadContent(){
 ItemsContent.load();
 UnitsContent.load();
+HiddenUnitsContent.load();
 CoreBlocks.load();
 DefenseBlocks.load();
 DistributionBlocks.load();
