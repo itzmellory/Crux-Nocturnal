@@ -4,6 +4,7 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 import arc.math.Angles;
+import arc.math.Mathf;
 import mindustry.content.Fx;
 import mindustry.content.StatusEffects;
 import mindustry.entities.Effect;
@@ -17,36 +18,72 @@ import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import cruxnocturnalworks.content.ContentVars;
 public class UnitsContent{
-private static final Color dark = Color.valueOf("21151d");
-private static final Color crimson = Color.valueOf("762235");
-private static final Color red = Color.valueOf("bd354b");
-private static final Color pale = Color.valueOf("e16a75");
-private static final Effect darkMuzzle = new Effect(26f, e -> {
-Draw.color(dark, crimson, e.fin());
-Lines.stroke(2.4f * e.fout());
-Lines.circle(e.x, e.y, 3f + e.fin() * 13f);
-Angles.randLenVectors(e.id, 9, e.fin() * 19f, (x, y) -> {
-Fill.circle(e.x + x, e.y + y, 1.1f * e.fout());
+private static final Color shadow = Color.valueOf("21151d");
+private static final Color wine = Color.valueOf("762235");
+private static final Color scarlet = Color.valueOf("bd354b");
+private static final Color ember = Color.valueOf("e16a75");
+private static final Color hot = Color.valueOf("ffb06a");
+private static final Effect elysiumMuzzle = new Effect(30f, e -> {
+float fin = e.fin(), fout = e.fout();
+Draw.color(shadow, wine, fin);
+Lines.stroke(3.2f * fout);
+Lines.circle(e.x, e.y, 3f + fin * 15f);
+Lines.stroke(1.2f * fout);
+Lines.circle(e.x, e.y, 2f + fin * 8f);
+Draw.color(scarlet);
+Angles.randLenVectors(e.id, 16, 5f + fin * 21f, (x, y) -> Fill.circle(e.x + x, e.y + y, 1.7f * fout));
+Draw.color(ember);
+Angles.randLenVectors(e.id + 71, 8, 3f + fin * 13f, (x, y) -> Fill.square(e.x + x, e.y + y, 1.2f * fout, e.rotation + fin * 90f));
 });
+private static final Effect elysiumShockwave = new Effect(35f, e -> {
+float fin = e.fin(), fout = e.fout(), radius = 45f * fin;
+Draw.color(shadow, scarlet, fin);
+Lines.stroke(5f * fout);
+Lines.circle(e.x, e.y, radius);
+Draw.color(ember);
+Lines.stroke(1.8f * fout);
+Lines.circle(e.x, e.y, radius * 0.78f);
+Lines.stroke(1.1f * fout);
+Lines.circle(e.x, e.y, radius * 1.08f);
+Angles.randLenVectors(e.id, 26, radius, (x, y) -> {
+float len = (2f + 5f * fout);
+Lines.stroke(1.4f * fout);
+Lines.line(e.x + x, e.y + y, e.x + x + Angles.trnsx(Angles.angle(x, y), len), e.y + y + Angles.trnsy(Angles.angle(x, y), len));
 });
-private static final Effect darkImpact = new Effect(42f, e -> {
-Draw.color(dark, red, e.fin());
-Lines.stroke(3.2f * e.fout());
-Lines.circle(e.x, e.y, 5f + e.fin() * e.rotation);
-Draw.color(pale);
-Angles.randLenVectors(e.id, 14, e.fin() * e.rotation, (x, y) -> {
-Fill.circle(e.x + x, e.y + y, 1.5f * e.fout());
+Angles.randLenVectors(e.id + 19, 13, radius * 0.72f, (x, y) -> Fill.circle(e.x + x, e.y + y, 1.8f * fout));
 });
+private static final Effect pavonisMuzzle = new Effect(38f, e -> {
+float fin = e.fin(), fout = e.fout();
+Draw.color(shadow, wine, fin);
+Lines.stroke(4f * fout);
+Lines.circle(e.x, e.y, 5f + fin * 19f);
+Draw.color(scarlet);
+Lines.stroke(2f * fout);
+Lines.circle(e.x, e.y, 3f + fin * 12f);
+Angles.randLenVectors(e.id, 24, 7f + fin * 25f, (x, y) -> Fill.circle(e.x + x, e.y + y, (1.2f + fin) * fout));
+Draw.color(hot);
+Angles.randLenVectors(e.id + 31, 12, 4f + fin * 16f, (x, y) -> Fill.tri(e.x + x, e.y + y, 3.5f * fout, 7f * fout, Angles.angle(x, y) + 90f));
 });
-private static final Effect pavonisImpact = new Effect(58f, e -> {
-Draw.color(dark, crimson, e.fin());
-Lines.stroke(4f * e.fout());
-Lines.circle(e.x, e.y, 8f + e.fin() * e.rotation);
-Draw.color(red);
-Lines.stroke(1.5f * e.fout());
-Lines.circle(e.x, e.y, 4f + e.fin() * e.rotation * 0.72f);
-Angles.randLenVectors(e.id, 22, e.fin() * e.rotation, (x, y) -> {
-Fill.circle(e.x + x, e.y + y, 2f * e.fout());
+private static final Effect pavonisShockwave = new Effect(55f, e -> {
+float fin = e.fin(), fout = e.fout(), radius = 55f * fin;
+Draw.color(shadow, wine, fin);
+Lines.stroke(5f * fout);
+Lines.circle(e.x, e.y, radius);
+Draw.color(scarlet);
+Lines.stroke(2.4f * fout);
+Lines.circle(e.x, e.y, radius * 0.84f);
+Draw.color(hot);
+Lines.stroke(1.2f * fout);
+Lines.circle(e.x, e.y, radius * 1.12f);
+Angles.randLenVectors(e.id, 34, radius, (x, y) -> {
+float angle = Angles.angle(x, y), length = 4f + 8f * fout;
+Draw.color(scarlet, hot, Mathf.clamp(fin * 1.4f));
+Lines.stroke(2f * fout);
+Lines.line(e.x + x, e.y + y, e.x + x + Angles.trnsx(angle, length), e.y + y + Angles.trnsy(angle, length));
+});
+Angles.randLenVectors(e.id + 47, 22, radius * 0.76f, (x, y) -> {
+Draw.color(wine, hot, e.fin());
+Fill.tri(e.x + x, e.y + y, 4f * fout, 9f * fout, Angles.angle(x, y) + 90f);
 });
 });
 public static void load(){
@@ -112,17 +149,9 @@ cooldown = Float.MAX_VALUE;
 weapons.add(new Weapon(ContentVars.CNW + "-a-elysium-shield-weapon"){{
 showStatSprite = true;
 display = true;
-top = true;
-layerOffset = 0.1f;
 x = 0f;
-y = 5f;
-shootY = -5f;
+y = 0f;
 mirror = false;
-controllable = true;
-aiControllable = true;
-autoTarget = false;
-recoil = 1.5f;
-recoilTime = 18f;
 reload = 45f;
 shootCone = 360f;
 bullet = new BasicBulletType(1f, 45f){{
@@ -130,14 +159,14 @@ lifetime = 1f;
 width = 0f;
 height = 0f;
 rangeOverride = 60f;
-hitEffect = darkImpact;
-shootEffect = darkMuzzle;
+hitEffect = Fx.none;
+shootEffect = elysiumMuzzle;
 smokeEffect = Fx.none;
 splashDamage = 19.5f;
 splashDamageRadius = 60f;
 collidesTeam = false;
 instantDisappear = true;
-despawnEffect = darkImpact;
+despawnEffect = elysiumShockwave;
 }};
 }});
 }};
@@ -194,17 +223,9 @@ y = 0f;
 weapons.add(new Weapon(ContentVars.CNW + "-a-pavonis-shield-weapon"){{
 showStatSprite = true;
 display = true;
-top = true;
-layerOffset = 0.1f;
 x = 0f;
-y = 7f;
-shootY = -7f;
+y = 0f;
 mirror = false;
-controllable = true;
-aiControllable = true;
-autoTarget = false;
-recoil = 2f;
-recoilTime = 24f;
 reload = 120f;
 shootCone = 360f;
 bullet = new BasicBulletType(1f, 105f){{
@@ -214,14 +235,14 @@ height = 0f;
 rangeOverride = 60f;
 status = StatusEffects.burning;
 statusDuration = 180f;
-hitEffect = pavonisImpact;
-shootEffect = darkMuzzle;
+hitEffect = Fx.none;
+shootEffect = pavonisMuzzle;
 smokeEffect = Fx.none;
 splashDamage = 57.5f;
 splashDamageRadius = 100f;
 collidesTeam = false;
 instantDisappear = true;
-despawnEffect = pavonisImpact;
+despawnEffect = pavonisShockwave;
 }};
 }});
 }};
