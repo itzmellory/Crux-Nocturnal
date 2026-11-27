@@ -191,7 +191,7 @@ cooldown = 60f;
 x = 0f;
 y = 0f;
 }});
-weapons.add(new Weapon("a-pavonis-shield-weapon"){{
+weapons.add(new Weapon("cruxnocturnalworks-a-pavonis-shield-weapon"){{
 showStatSprite = true;
 display = true;
 top = true;
