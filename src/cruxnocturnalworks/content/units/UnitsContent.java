@@ -109,7 +109,7 @@ x = 0f;
 y = 2f;
 cooldown = Float.MAX_VALUE;
 }});
-weapons.add(new Weapon("a-elysium-shield-weapon"){{
+weapons.add(new Weapon(ContentVars.CNW + "-a-elysium-shield-weapon"){{
 showStatSprite = true;
 display = true;
 top = true;
@@ -191,7 +191,7 @@ cooldown = 60f;
 x = 0f;
 y = 0f;
 }});
-weapons.add(new Weapon("cruxnocturnalworks-a-pavonis-shield-weapon"){{
+weapons.add(new Weapon(ContentVars.CNW + "-a-pavonis-shield-weapon"){{
 showStatSprite = true;
 display = true;
 top = true;
