@@ -29,12 +29,10 @@ targetAir = false;
 targetGround = true;
 faceTarget = false;
 outlineColor = mindustry.graphics.Pal.darkerMetal;
-@Override
-public void load(){
-super.load();
+load = () -> {
 region = Core.atlas.find("crawler", Core.atlas.find("dagger"));
 fullIcon = region;
-}
+};
 }};
 Events.run(Trigger.update, ()->{
 if(Vars.state == null || Vars.state.isMenu() || Vars.world == null) return;
