@@ -18,6 +18,16 @@ import mindustry.type.UnitType;
 import mindustry.type.Weapon;
 import cruxnocturnalworks.content.ContentVars;
 public class UnitsContent{
+private static void triangle(float x, float y, float width, float height, float rotation){
+float cos = Mathf.cosDeg(rotation), sin = Mathf.sinDeg(rotation);
+float x1 = x + sin * height * 0.5f;
+float y1 = y - cos * height * 0.5f;
+float x2 = x + cos * width * 0.5f - sin * height * 0.5f;
+float y2 = y + sin * width * 0.5f + cos * height * 0.5f;
+float x3 = x - cos * width * 0.5f - sin * height * 0.5f;
+float y3 = y - sin * width * 0.5f + cos * height * 0.5f;
+Fill.tri(x1, y1, x2, y2, x3, y3);
+}
 private static final Color shadow = Color.valueOf("21151d");
 private static final Color wine = Color.valueOf("762235");
 private static final Color scarlet = Color.valueOf("bd354b");
@@ -62,7 +72,7 @@ Lines.stroke(2f * fout);
 Lines.circle(e.x, e.y, 3f + fin * 12f);
 Angles.randLenVectors(e.id, 24, 7f + fin * 25f, (x, y) -> Fill.circle(e.x + x, e.y + y, (1.2f + fin) * fout));
 Draw.color(hot);
-Angles.randLenVectors(e.id + 31, 12, 4f + fin * 16f, (x, y) -> Fill.tri(e.x + x, e.y + y, 3.5f * fout, 7f * fout, Angles.angle(x, y) + 90f));
+Angles.randLenVectors(e.id + 31, 12, 4f + fin * 16f, (x, y) -> triangle(e.x + x, e.y + y, 3.5f * fout, 7f * fout, Angles.angle(x, y) + 90f));
 });
 private static final Effect pavonisShockwave = new Effect(55f, e -> {
 float fin = e.fin(), fout = e.fout(), radius = 55f * fin;
@@ -83,7 +93,7 @@ Lines.line(e.x + x, e.y + y, e.x + x + Angles.trnsx(angle, length), e.y + y + An
 });
 Angles.randLenVectors(e.id + 47, 22, radius * 0.76f, (x, y) -> {
 Draw.color(wine, hot, e.fin());
-Fill.tri(e.x + x, e.y + y, 4f * fout, 9f * fout, Angles.angle(x, y) + 90f);
+triangle(e.x + x, e.y + y, 4f * fout, 9f * fout, Angles.angle(x, y) + 90f);
 });
 });
 public static void load(){
@@ -247,4 +257,4 @@ despawnEffect = pavonisShockwave;
 }});
 }};
 }
-}
+                                        }
